@@ -1,0 +1,16 @@
+# IDE / OS Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Documentation / Task Tracking
+task.md
+implementation_plan.md
+walkthrough.md
+
+# Application specific
+config.js
+node_modules/
+.env
+.env.local

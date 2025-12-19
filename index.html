@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' https://*.supabase.co; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Booking & Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📦</text></svg>">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">Service<span>Flow</span></a>
+            <div class="nav-links" id="navLinks">
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <button id="authBtn" class="btn btn-primary">Login / Sign Up</button>
+                <div id="userMenu" class="user-menu hidden">
+                    <span id="userName">User</span>
+                    <button class="btn btn-outline btn-sm" onclick="showProfile()">Profile</button>
+                    <button id="logoutBtn" class="btn btn-outline btn-sm">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Landing Section -->
+        <section id="hero" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Book Your Service <br><span>In Seconds</span></h1>
+                    <p>The fastest way to manage your service requests. Professional, reliable, and transparent.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary btn-lg" onclick="showAuth()">Get Started</button>
+                        <a href="#features" class="btn btn-secondary btn-lg">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Everything You Need</h2>
+                    <p>Streamlined service management for modern businesses and customers.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Lightning Fast</h3>
+                        <p>Create and track booking requests in just a few clicks. No more endless phone calls.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Secure Access</h3>
+                        <p>Your data is protected by industry-standard encryption and secure role-based access.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Real-time Stats</h3>
+                        <p>Track your booking history and status updates instantly on your personalized dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-content">
+                        <span class="badge">Our Mission</span>
+                        <h2>Bridging the Gap Between Service & Efficiency</h2>
+                        <p>ServiceFlow was built to eliminate the friction in service management. We believe that
+                            booking a professional service should be as easy as sending a text, and managing those
+                            requests should be even simpler.</p>
+                        <p>Whether you're a customer seeking quality service or an admin managing a growing business,
+                            our platform provides the tools to succeed.</p>
+                        <button class="btn btn-primary" onclick="showAuth()">Join ServiceFlow Today</button>
+                    </div>
+                    <div class="about-image">
+                        <div class="glass-box">
+                            <div class="glass-item">✨ Modern Interface</div>
+                            <div class="glass-item">🚀 Business Ready</div>
+                            <div class="glass-item">🔒 Secure Platform</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Placeholder (Dynamic Content) -->
+
+        <section id="dashboard" class="dashboard hidden">
+            <div class="container">
+                <div id="dashboardHeader" class="dashboard-header">
+                    <h2>Welcome back, <span id="dashboardUserName">User</span></h2>
+                    <p id="dashboardRole">Customer Dashboard</p>
+                </div>
+
+                <div id="userDashboard" class="dashboard-grid hidden">
+                    <!-- User Stats Grid -->
+                    <div class="stats-grid full-width">
+                        <div class="stat-card">
+                            <span class="stat-label">Total Bookings</span>
+                            <h3 id="userStatTotal" class="stat-value">0</h3>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-label">Active Requests</span>
+                            <h3 id="userStatActive" class="stat-value">0</h3>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-label">Completed/Rejected</span>
+                            <h3 id="userStatResolved" class="stat-value">0</h3>
+                        </div>
+                    </div>
+
+                    <!-- Booking Form -->
+                    <div class="card">
+                        <h3>New Booking</h3>
+                        <form id="bookingForm">
+                            <div class="form-group">
+                                <label for="serviceType">Service Type</label>
+                                <select id="serviceType" required>
+                                    <option value="">Select a service</option>
+                                    <option value="Consultation">Consultation</option>
+                                    <option value="Repair">Repair</option>
+                                    <option value="Maintenance">Maintenance</option>
+                                    <option value="Installation">Installation</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="bookingDate">Preferred Date</label>
+                                <input type="date" id="bookingDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="notes">Notes (Optional)</label>
+                                <textarea id="notes" placeholder="Any specific requirements?"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Submit Request</button>
+                        </form>
+                    </div>
+                    <!-- Booking List -->
+                    <div class="card">
+                        <h3>Your Bookings</h3>
+                        <div class="table-responsive">
+                            <table id="userBookingsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Service</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Dynamic content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="adminDashboard" class="dashboard-grid admin-grid hidden">
+                    <div class="card full-width">
+                        <!-- Admin Stats Grid -->
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-label">Total Requests</span>
+                                <h3 id="statTotal" class="stat-value">0</h3>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-label">Pending</span>
+                                <h3 id="statPending" class="stat-value">0</h3>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-label">Approved</span>
+                                <h3 id="statApproved" class="stat-value">0</h3>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-label">Rejected</span>
+                                <h3 id="statRejected" class="stat-value">0</h3>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-header">
+                            <h3>Active Requests</h3>
+                            <div class="filter-group">
+                                <div class="search-box">
+                                    <input type="text" id="adminSearch" placeholder="Search customer..."
+                                        autocomplete="off">
+                                </div>
+                                <label for="adminStatusFilter">Filter by Status:</label>
+                                <select id="adminStatusFilter">
+                                    <option value="all">All Active</option>
+                                    <option value="pending">Pending Only</option>
+                                    <option value="approved">Approved Only</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="adminActiveTable">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Service</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminActiveTableBody">
+                                    <!-- Dynamic rows for Active (Pending/Approved) -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Archive Section -->
+                        <div class="archive-section">
+                            <div class="card-header archive-header">
+                                <h3>Rejected Archive</h3>
+                                <button id="toggleArchive" class="btn btn-outline btn-sm">Show Archive</button>
+                            </div>
+                            <div id="archiveContent" class="table-responsive hidden">
+                                <table id="adminArchiveTable">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Service</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminArchiveTableBody">
+                                        <!-- Dynamic rows for Rejected -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeAuth">&times;</span>
+            <div class="auth-box">
+                <div class="auth-header">
+                    <button id="loginTab" class="active">Login</button>
+                    <button id="signupTab">Sign Up</button>
+                </div>
+                <form id="authForm">
+                    <div class="form-group hidden" id="fullNameGroup">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="John Doe" autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="••••••••" required
+                            autocomplete="current-password">
+                    </div>
+                    <button type="submit" id="submitAuth" class="btn btn-primary btn-block">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDetailModal()">&times;</span>
+            <h3>Booking Details</h3>
+            <div id="bookingDetailContent" class="detail-content">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Settings Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeProfileModal()">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">👤</div>
+                <h2>Profile Settings</h2>
+                <p>Update your personal information</p>
+            </div>
+            <form id="profileForm" class="auth-form">
+                <div class="form-group">
+                    <label for="profileFullName">Full Name</label>
+                    <input type="text" id="profileFullName" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="profileEmail">Email Address</label>
+                    <input type="email" id="profileEmail" disabled>
+                    <small>Email cannot be changed.</small>
+                </div>
+                <button type="submit" id="submitProfile" class="btn btn-primary btn-full">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>

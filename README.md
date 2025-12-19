@@ -1,9 +1,3 @@
-# Service-Booking-Management-Web-App
-Below is a **professional, client-grade README description**.
-Use it **as-is** in your GitHub repo. Do not over-edit. This positions you as a serious builder, not a hobbyist.
-
----
-
 # Service Booking & Management Web App
 
 ## Overview
@@ -17,87 +11,75 @@ The application focuses on clean architecture, secure authentication, and role-b
 ## Key Features
 
 ### User Features
-
 * Secure user authentication (sign up & login)
 * Create service booking requests
 * View personal booking history
 * Track booking status (Pending, Approved, Rejected)
 
 ### Admin Features
-
 * Secure admin access
 * View all user bookings
 * Update booking statuses in real time
-* Centralized management dashboard
+* Centralized management dashboard with filtering and detailed views
 
 ---
 
 ## Tech Stack
-
 * **Frontend:** HTML, CSS, JavaScript
 * **Backend:** Supabase (PostgreSQL + Auth)
-* **Authentication:** Supabase Auth
-* **Database:** Supabase Tables with Row Level Security
-* **Hosting:** Netlify / Vercel (planned)
+* **Design:** Premium, modern aesthetic with glassmorphism and animations.
 
 ---
 
-## Database Structure
+## Getting Started
 
-### `bookings` Table
+### 1. Database Setup
+Follow the detailed instructions in the [database/ folder](./database/README.md) to set up your Supabase project and RLS policies.
 
-| Field        | Type                                 |
-| ------------ | ------------------------------------ |
-| id           | UUID (Primary Key)                   |
-| user_id      | UUID (Authenticated User)            |
-| service      | Text                                 |
-| booking_date | Date                                 |
-| note         | Text                                 |
-| status       | Text (pending / approved / rejected) |
-| created_at   | Timestamp                            |
+### 2. Configure the App
+1.  Copy `config.example.js` to `config.js`:
+    ```bash
+    cp config.example.js config.js
+    ```
+2.  Open `config.js` and replace the placeholders with your actual Supabase URL and Anon Key:
+    ```javascript
+    const SUPABASE_URL = 'https://your-project.supabase.co';
+    const SUPABASE_ANON_KEY = 'your-anon-key';
+    ```
+3.  Ensure `config.js` is NOT committed to version control (already added to `.gitignore`).
 
----
+### 3. Run Locally
 
-## Security & Access Control
+#### Option A: Simple (No Setup)
+Simply open `index.html` in your favorite web browser.
 
-* User authentication handled by Supabase Auth
-* Users can only view and manage their own bookings
-* Admin access is restricted and controlled
-* Database-level security enforced using Row Level Security (RLS)
+#### Option B: Professional (With Live Reload)
+This requires [Node.js](https://nodejs.org/) installed:
+1. Open your terminal in the project folder.
+2. Run `npm install` to install the development server (Vite).
+3. Run `npm run dev` to start the app.
+4. The app will open automatically at `http://localhost:3000`.
 
----
-
-## Use Case
-
-This project represents a real-world service booking system that can be adapted for:
-
-* Local service providers
-* Internal company tools
-* Freelance or agency client projects
-* Rapid MVP development for startups
 
 ---
 
-## Purpose of the Project
+## How to Test
 
-* Demonstrate full-stack development skills
-* Showcase backend integration and authentication
-* Prove ability to build functional, real-world applications quickly
-* Serve as a portfolio project for freelancing and client work
+### Testing the User Flow
+1. Open the app and click **Login / Sign Up**.
+2. Create a new account.
+3. Once logged in, use the form to submit a new service booking.
+4. Verify it appears in your "Your Bookings" list.
+
+### Testing the Admin Flow
+1. After signing up, go to your **Supabase Dashboard** -> **Table Editor**.
+2. Select the `profiles` table and change your `role` from `'user'` to `'admin'`.
+3. Refresh the web app. You should now see the **Admin Dashboard**.
+4. Create new bookings as a user, then log in as admin to manage them.
+5. Approve or Reject bookings and verify the status updates in real-time.
 
 ---
 
-## Future Enhancements
-
-* Email or in-app notifications
-* Payment integration
-* Role management system
-* Improved UI and mobile responsiveness
-
----
-
-## Author
-
+## Authors
 Built by **Mizan**
 Focused on rapid, functional web application development using modern tools.
-
