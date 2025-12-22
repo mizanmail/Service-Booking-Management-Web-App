@@ -1,13 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Supabase Configuration using Vite environment variables
-// This file can safely be committed to git
-// Create a .env file (from .env.example) with your actual credentials
+// In production (Vercel), these will come from environment variables
+// In development, they come from .env file
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    console.error('Missing Supabase environment variables. Copy .env.example to .env and fill in your credentials.');
+    console.error('Missing Supabase environment variables');
 }
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);

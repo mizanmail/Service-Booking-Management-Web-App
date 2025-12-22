@@ -10,7 +10,6 @@ implementation_plan.md
 walkthrough.md
 
 # Application specific
-config.js
 node_modules/
 .env
 .env.local
